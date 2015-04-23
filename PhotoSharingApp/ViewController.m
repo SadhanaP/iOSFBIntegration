@@ -7,6 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "AFNetworking.h"
+static NSString * const BaseURLStringGet=@"http://localhost:3000/photoshare/api/v1/test";
+
+static NSString * const BaseURLStringPost=@"http://localhost:3000/photoshare/api/v1/test";
 
 @interface ViewController ()
 
@@ -186,6 +190,105 @@ didCompleteWithResult: 	(FBSDKLoginManagerLoginResult *)result
     
     // Present mail view controller on screen
     [self presentViewController:mc animated:YES completion:NULL];
+}
+
+- (IBAction)jsonData:(id)sender {
+    // 1
+    
+    NSString *string = BaseURLStringGet;
+    
+    NSURL *url = [NSURL URLWithString:string];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    
+    
+    // 2
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+        // 3
+        
+        NSDictionary *dic  = (NSDictionary *)responseObject;
+        
+        NSString *name= [dic objectForKey:@"name"];
+        NSLog(@"%@", name);
+        
+        NSLog(@"%@",dic);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 4
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Weather"
+                                  
+                                                            message:[error localizedDescription]
+                                  
+                                                           delegate:nil
+                                  
+                                                  cancelButtonTitle:@"Ok"
+                                  
+                                                  otherButtonTitles:nil];
+        
+        [alertView show];
+        
+    }];
+    
+    // 5
+    
+    [operation start];
+    
+    NSLog(@"%@",@"Trying to post now");
+    
+    //step one generate url to post
+    
+    NSString *String = BaseURLStringPost;
+    
+    NSURL *url1 = [NSURL URLWithString:String];
+    
+    NSURLRequest *request1 = [NSURLRequest requestWithURL:url1];
+    
+    // step two generate manager
+    
+    
+    
+    AFHTTPRequestOperationManager *newManager = [AFHTTPRequestOperationManager manager];
+    
+    newManager.requestSerializer=[AFJSONRequestSerializer serializer];
+    
+    
+    
+    NSDictionary *paramerters = @{@"name": @"Sadhana",
+                                  
+                                  @"userid": @"2342323423"};
+    
+    NSString *name=@"sadhana";
+    
+    NSString *userid=@"2342323423";
+    
+    
+    NSDictionary *jsonSignUpDictionary = @{@"name":name, @"userid":userid};
+    
+    
+    
+    NSLog(@"Dictionary: %@", [jsonSignUpDictionary description]);
+    
+    [newManager POST:BaseURLStringPost parameters:jsonSignUpDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"JSON: %@", responseObject);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        
+    }];
 }
 
 

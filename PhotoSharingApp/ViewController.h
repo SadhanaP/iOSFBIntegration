@@ -25,8 +25,7 @@
 - (IBAction)inviteFriends:(id)sender;
 
 
-
-
+- (IBAction)jsonData:(id)sender;
 
 
 @end

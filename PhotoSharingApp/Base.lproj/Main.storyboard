@@ -47,10 +47,21 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vh-ED-YTc">
+                                <rect key="frame" x="86" y="352" width="125" height="30"/>
+                                <state key="normal" title="Call JSON">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="inviteFriends:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="i68-b8-Y8H"/>
+                                    <action selector="jsonData:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OjK-7H-u46"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="abdf" destination="8vh-ED-YTc" id="Iyi-FJ-QA1"/>
                         <outlet property="emailLabel" destination="By8-nc-MVv" id="WTA-T8-cmY"/>
                         <outlet property="inviteFriends" destination="IMg-eq-ccP" id="D2R-I6-mqR"/>
                         <outlet property="lblLoginStatus" destination="W6j-w4-hSa" id="BlE-Yn-kNK"/>
